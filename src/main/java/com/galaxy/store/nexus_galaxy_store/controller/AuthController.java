@@ -3,6 +3,7 @@ package com.galaxy.store.nexus_galaxy_store.controller;
 import com.galaxy.store.nexus_galaxy_store.dto.request.LoginRequest;
 import com.galaxy.store.nexus_galaxy_store.dto.request.RegisterRequest;
 import com.galaxy.store.nexus_galaxy_store.dto.response.ApiResponse;
+import com.galaxy.store.nexus_galaxy_store.dto.response.AuthResponse;
 import com.galaxy.store.nexus_galaxy_store.dto.response.UserResponse;
 import com.galaxy.store.nexus_galaxy_store.service.interfaces.AuthService;
 import jakarta.validation.Valid;
@@ -26,20 +27,20 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<UserResponse>> register(@Valid @RequestBody RegisterRequest request) {
-        UserResponse response = authService.register(request);
-        ApiResponse<UserResponse> apiResponse = ApiResponse.<UserResponse> builder()
+    public ResponseEntity<ApiResponse<AuthResponse>> register(@Valid @RequestBody RegisterRequest request) {
+        AuthResponse response = authService.register(request);
+        ApiResponse<AuthResponse> apiResponse = ApiResponse.<AuthResponse> builder()
                 .success(true)
-                .message("User registered successfully")
+                .message("User registered successfully.")
                 .data(response)
                 .build();
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<UserResponse>> login(@Valid @RequestBody LoginRequest request) {
-        UserResponse response = authService.login(request);
-        ApiResponse<UserResponse> apiResponse = ApiResponse.<UserResponse> builder()
+    public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
+        AuthResponse response = authService.login(request);
+        ApiResponse<AuthResponse> apiResponse = ApiResponse.<AuthResponse> builder()
                 .success(true)
                 .message("Login successful")
                 .data(response)
